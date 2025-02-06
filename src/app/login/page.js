@@ -32,7 +32,7 @@ export default function Login() {
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
-        <div className="mb-4">
+        <div className="mb-2">
           <label
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
@@ -71,7 +71,7 @@ export default function Login() {
           Login
         </button>
         <p className="mt-4 text-center text-sm">
-          Don't have an account?{" "}
+          Dont have an account?{" "}
           <a href="/register" className="text-blue-500">
             Register here
           </a>
