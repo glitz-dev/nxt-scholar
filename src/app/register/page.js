@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import { API_URL } from '../../../utils/config';
- 
+
 export default function Register() {
   const router = useRouter();
   const [firstname, setFirstname] = useState("");
@@ -19,7 +20,6 @@ export default function Register() {
     try {
 
       if (firstname && lastname && emailid && password) {
-        console.log(`${API_URL}user`);
         const response = await fetch(`${API_URL}user`, {
           method: 'POST',
           headers: {
@@ -27,20 +27,26 @@ export default function Register() {
           },
           body: JSON.stringify(user)
         });
-  
-        if (!response.ok){
-          throw new Error('Registration Failed');
-        }
-  
-        const result = await response.json();
-        setMessage("User registered successfully");
 
-        router.push("/login"); // Redirect to login page after successful registration
+        if (!response.ok){
+          const result = await response.json();
+          if (response.status == 409) {  // added to show Email duplication
+            toast.warning(result.warning);
+          }
+          else {
+            throw new Error('Registration Failed');
+          }
+        }
+        else {
+          const result = await response.json();
+          toast.success(result.message);
+          router.push("/login"); // Redirect to login page after successful registration
+        }
       } else {
-        setError("Please fill in all fields.");
+        toast.warning("Please fill in all fields.");
       }
     } catch (err) {
-      setError("Registration failed. Try again later.");
+        toast.error("Registration failed. Try again later.");
     }
   };
 
