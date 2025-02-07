@@ -8,6 +8,9 @@
 # Project Variables
 - Access the global API_URL in Register form
 
+# Notification
+- installed react-toastify
+
 # Register form [http://localhost:3000/register]
 - tailwind
 - firstname, lastname, email, password fields added
