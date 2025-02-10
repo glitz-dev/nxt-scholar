@@ -5,13 +5,13 @@
 - for global access, created a config file under utils folder
 - we can define an alternative domain in this config for local development
 
-# Project Variables
+## Project Variables
 - Access the global API_URL in Register form
 
-# Notification
+## Notification
 - installed react-toastify
 
-# Register form [http://localhost:3000/register]
+## Register form [http://localhost:3000/register]
 - tailwind
 - firstname, lastname, email, password fields added
 - gender not found in entity

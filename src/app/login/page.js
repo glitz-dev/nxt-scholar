@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
+import { API_URL } from "../../../utils/config";
+
 
 export default function Login() {
   const router = useRouter();
@@ -12,10 +16,30 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Dummy authentication (replace with actual API logic)
-      if (email === "test@example.com" && password === "password") {
-        alert("Login successful");
-        router.push("/"); // Redirect to home page after successful login
+      console.log(`${API_URL}account`)
+    debugger;
+      if (email && password ) {
+        const loginUser = { emailId:email, password };
+         const response = await fetch(`${API_URL}account/login`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(loginUser)
+                });
+        console.log(response);
+        if (response.ok)
+        {
+          const result = await response.json();
+          toast.success(result.message);
+          router.push("/"); 
+        }
+        else
+        {
+          toast.warning(result.message);
+        }
+       
+        
       } else {
         setError("Invalid email or password.");
       }
